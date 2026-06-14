@@ -1,31 +1,27 @@
-const TipoAtendimento = require('../enums/tipoAtendimento');
+import TipoAtendimento from '../enums/tipoAtendimento.js';
 
-class Atendimento {
-  constructor({ id, tecnicoId, adolescenteId, tipo, data, descricao, criadoEm }) {
-    this.validate({ tecnicoId, adolescenteId, tipo, descricao });
+export default class Atendimento {
+  constructor({ adolescente_id, equipe, tipo, descricao, tecnico_responsavel }) {
+    if (!adolescente_id || !descricao) {
+      throw new Error('Campos obrigatórios ausentes: adolescente_id e descricao.');
+    }
 
-    this.id = id;
-    this.tecnicoId = tecnicoId;
-    this.adolescenteId = adolescenteId;
+    // Validação estrita do domínio do DEGASE
+    const equipesPermitidas = ['EQUIPE_TECNICA', 'SAUDE_MENTAL'];
+    if (!equipesPermitidas.includes(equipe)) {
+      throw new Error(`Equipe inválida para este lançamento: ${equipe}`);
+    }
+
+    // Validação contra o Enum original exigido
+    if (!TipoAtendimento[tipo]) {
+      throw new Error(`Tipo de atendimento inválido: ${tipo}`);
+    }
+
+    this.adolescente_id = adolescente_id;
+    this.equipe = equipe;
     this.tipo = tipo;
-    this.data = data ? new Date(data) : new Date();
     this.descricao = descricao;
-    this.criadoEm = criadoEm ? new Date(criadoEm) : new Date();
-  }
-
-  validate({ tecnicoId, adolescenteId, tipo, descricao }) {
-    if (!tecnicoId) throw new Error('O ID do técnico é obrigatório.');
-    if (!adolescenteId) throw new Error('O ID do adolescente é obrigatório.');
-    
-    const tiposValidos = Object.values(TipoAtendimento);
-    if (!tipo || !tiposValidos.includes(tipo)) {
-      throw new Error('Tipo de atendimento inválido.');
-    }
-    
-    if (!descricao || descricao.trim() === '') {
-      throw new Error('A descrição do atendimento não pode ser vazia.');
-    }
+    this.tecnico_responsavel = tecnico_responsavel;
+    this.criado_em = new Date();
   }
 }
-
-module.exports = Atendimento;

@@ -1,19 +1,16 @@
-const mongoose = require('mongoose');
-const TipoAtendimento = require('../../../domain/enums/tipoAtendimento');
+import mongoose from 'mongoose';
+import TipoAtendimento from '../../../../domain/enums/tipoAtendimento.js';
 
 const AtendimentoSchema = new mongoose.Schema({
-  tecnicoId: { type: String, required: true, index: true },
-  adolescenteId: { type: String, required: true, index: true },
-  tipo: { 
-    type: String, 
-    enum: Object.values(TipoAtendimento), 
-    required: true 
-  },
-  data: { type: Date, required: true, default: Date.now, index: true },
+  adolescente_id: { type: String, required: true },
+  equipe: { type: String, required: true, enum: ['EQUIPE_TECNICA', 'SAUDE_MENTAL'] },
+  tipo: { type: String, required: true },
   descricao: { type: String, required: true },
-  criadoEm: { type: Date, default: Date.now }
+  tecnico_responsavel: { type: String, required: true },
+  criado_em: { type: Date, default: Date.now }
 }, {
+  collection: 'atendimentos', // Força o nome correto da coleção no Mongo
   versionKey: false
 });
 
-module.exports = mongoose.model('Atendimento', AtendimentoSchema);
+export default mongoose.model('Atendimento', AtendimentoSchema);

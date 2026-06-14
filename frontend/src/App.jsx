@@ -332,22 +332,21 @@ const DiretorDashboard = () => {
     </div>
   );
 };
-
 // ==========================================
-// COMPONENTE: DASHBOARD DO TÉCNICO DE SAÚDE (MONGODB INTEGRADO)
+// COMPONENTE: DASHBOARD DO TÉCNICO DE SAÚDE (CORRIGIDO E SEGURO)
 // ==========================================
 const TecnicoDashboard = () => {
   const username = localStorage.getItem('medmetrics_username') || 'Técnico';
   
-  // Estados para o formulário de atendimento
+  // Estados mapeados corretamente com os requisitos de negócio
   const [adolescenteId, setAdolescenteId] = useState('');
-  const [tipoAtendimento, setTipoAtendimento] = useState('EQUIPE_TECNICA'); // Valor inicial atualizado
+  const [equipe, setEquipe] = useState('EQUIPE_TECNICA'); // Começa com EQUIPE_TECNICA
+  const [tipoAtendimento, setTipoAtendimento] = useState('INDIVIDUAL'); // Começa com seu Enum original
   const [descricao, setDescricao] = useState('');
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  // Função para enviar o indicador clínico para o Analytics-Service (MongoDB)
   const handleRecordAtendimento = async (e) => {
     e.preventDefault();
     setFormError('');
@@ -361,7 +360,7 @@ const TecnicoDashboard = () => {
     try {
       setSubmitting(true);
       
-      // Chamada para o serviço de Analytics/Métricas que gerencia o MongoDB
+      // Envia a estrutura exata exigida pelo Clean Architecture do backend
       const response = await fetch('http://localhost:3002/api/analytics/atendimentos', {
         method: 'POST',
         headers: { 
@@ -370,7 +369,8 @@ const TecnicoDashboard = () => {
         },
         body: JSON.stringify({
           adolescente_id: adolescenteId,
-          tipo: tipoAtendimento,
+          equipe: equipe,            // 'EQUIPE_TECNICA' ou 'SAUDE_MENTAL'
+          tipo: tipoAtendimento,     // 'INDIVIDUAL', 'FAMILIAR', 'EM_GRUPO', etc.
           descricao: descricao,
           tecnico_responsavel: username
         })
@@ -434,7 +434,7 @@ const TecnicoDashboard = () => {
       </div>
 
       {/* Formulário Operacional */}
-      <div className="max-w-2xl bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+      <div className="max-w-4xl bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
         <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
           <span>📝</span> Registrar Novo Atendimento de Adolescente
         </h2>
@@ -443,9 +443,10 @@ const TecnicoDashboard = () => {
         {formSuccess && <div className="mb-4 p-3 text-xs bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 font-medium">✅ {formSuccess}</div>}
 
         <form onSubmit={handleRecordAtendimento} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Grid de 3 Colunas: Alinhamento perfeito dos dados de domínio */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">ID/Prontuário do Adolescente</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">ID do Adolescente</label>
               <input 
                 type="text" 
                 value={adolescenteId} 
@@ -456,17 +457,29 @@ const TecnicoDashboard = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo de Atendimento</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Equipe Responsável</label>
+              <select 
+                value={equipe} 
+                onChange={e => setEquipe(e.target.value)} 
+                className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm bg-slate-50 focus:outline-none focus:border-degase-blue focus:bg-white transition-all font-medium text-slate-700"
+              >
+                <option value="EQUIPE_TECNICA">EQUIPE TÉCNICA</option>
+                <option value="SAUDE_MENTAL">EQUIPE SAÚDE MENTAL</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo de Intervenção</label>
               <select 
                 value={tipoAtendimento} 
                 onChange={e => setTipoAtendimento(e.target.value)} 
                 className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm bg-slate-50 focus:outline-none focus:border-degase-blue focus:bg-white transition-all font-medium text-slate-700"
               >
-                {/* OPÇÕES ATUALIZADAS CONFORME DESEJADO */}
-                <option value="EQUIPE_TECNICA">EQUIPE TÉCNICA</option>
-                <option value="SAUDE_MENTAL">EQUIPE SAÚDE MENTAL</option>
-                <option value="ENFERMAGEM">ENFERMAGEM</option>
-                <option value="REDE_EXTERNA">REDE EXTERNA</option>
+                <option value="INDIVIDUAL">INDIVIDUAL</option>
+                <option value="FAMILIAR">FAMILIAR</option>
+                <option value="EM_GRUPO">EM GRUPO</option>
+                <option value="VISITA">VISITA PRESENCIAL</option>
+                <option value="VISITA_VIRTUAL">VISITA VIRTUAL</option>
               </select>
             </div>
           </div>
@@ -488,7 +501,7 @@ const TecnicoDashboard = () => {
               disabled={submitting} 
               className="bg-degase-blue hover:bg-slate-900 text-white font-semibold py-2.5 px-6 rounded-xl transition-colors text-sm shadow-sm disabled:opacity-50"
             >
-              {submitting ? 'Salva no MongoDB...' : 'Salvar Atendimento'}
+              {submitting ? 'Salvando no MongoDB...' : 'Salvar Atendimento'}
             </button>
           </div>
         </form>
@@ -496,7 +509,6 @@ const TecnicoDashboard = () => {
     </div>
   );
 };
-
 // ==========================================
 // COMPONENTE: GUARDA DE ROTAS (Segurança/SOLID)
 // ==========================================
