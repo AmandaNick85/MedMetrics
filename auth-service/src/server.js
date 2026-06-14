@@ -20,11 +20,11 @@ async function startServer() {
     // ==========================================
     const hashSenha = await bcrypt.hash('Med@123', 10);
 
-    // Garante o Diretor Geral
+    // Garante o Diretor Técnico
     await User.findOrCreate({
       where: { id_institucional: '1001' },
       defaults: {
-        name: 'Diretor Geral',
+        name: 'Diretor Técnico',
         password: hashSenha,
         role: 'DIRETOR'
       }
