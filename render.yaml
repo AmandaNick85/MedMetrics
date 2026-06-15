@@ -6,7 +6,7 @@ services:
     repo: https://github.com/AmandaNick85/MedMetrics.git
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    rootDirectory: frontend
+    rootDirectory: frontend/dist
     envVars:
       - key: VITE_API_AUTH_URL
         fromService:
@@ -27,7 +27,7 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: npm start
-    rootDirectory: auth-service
+    rootDirectory: auth-service/dist
     envVars:
       - key: PORT
         value: 3001
@@ -42,7 +42,7 @@ services:
     runtime: docker # <-- O Render vai ler o seu Dockerfile automaticamente!
     repo: https://github.com/AmandaNick85/MedMetrics.git
     plan: free
-    rootDirectory: analytics-service
+    rootDirectory: analytics-service/dist
     envVars:
       - key: PORT
         value: 3002
