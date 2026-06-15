@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import AtendimentoRepository from './infrastructure/database/mongodb/AtendimentoRepository.js';
-import RegistrarAtendimento from './core/usecases/RegistrarAtendimento.js';
+import RegistrarAtendimento from './domain/usecases/RegistrarAtendimento.js';
 
 const app = express();
 

@@ -6,4 +6,4 @@ const TipoAtendimento = Object.freeze({
   VISITA_VIRTUAL: 'VISITA_VIRTUAL'
 });
 
-module.exports = TipoAtendimento;
+export default TipoAtendimento;

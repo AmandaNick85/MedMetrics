@@ -1,4 +1,4 @@
-import AtendimentoModel from './AtendimentoModel.js';
+import AtendimentoModel from './models/AtendimentoModel.js';
 
 export default class AtendimentoRepository {
   // O UseCase chama essa função passando a entidade de domínio limpa
