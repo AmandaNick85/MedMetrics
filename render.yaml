@@ -1,52 +1,61 @@
 services:
-  # 1. FRONTEND (Site Estático)
+  # FRONTEND
   - type: web
     name: medmetrics-frontend
     runtime: node
     repo: https://github.com/AmandaNick85/MedMetrics.git
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    rootDirectory: frontend/dist
+
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend
+
     envVars:
       - key: VITE_API_AUTH_URL
         fromService:
           type: web
           name: medmetrics-auth-service
           property: url
+
       - key: VITE_API_ANALYTICS_URL
         fromService:
           type: web
           name: medmetrics-analytics-service
           property: url
 
-  # 2. AUTH-SERVICE (API Node/Express)
+  # AUTH SERVICE
   - type: web
     name: medmetrics-auth-service
     runtime: node
-    repo: https://github.com/AmandaNick85/MedMetrics.git
     plan: free
-    buildCommand: npm install
-    startCommand: npm start
-    rootDirectory: auth-service/dist
+    repo: https://github.com/AmandaNick85/MedMetrics.git
+
+    buildCommand: cd auth-service && npm install
+    startCommand: cd auth-service && npm start
+
     envVars:
       - key: PORT
         value: 3001
+
       - key: DATABASE_URL
         sync: false
-      - key: JWT_SECRET
-        generateValue: true # <-- O Render gera uma chave segura de forma automática para você
 
-  # 3. ANALYTICS-SERVICE (API Baseada no seu Dockerfile)
+      - key: JWT_SECRET
+        generateValue: true
+
+  # ANALYTICS SERVICE
   - type: web
     name: medmetrics-analytics-service
-    runtime: docker # <-- O Render vai ler o seu Dockerfile automaticamente!
-    repo: https://github.com/AmandaNick85/MedMetrics.git
+    runtime: docker
     plan: free
-    rootDirectory: analytics-service/dist
+    repo: https://github.com/AmandaNick85/MedMetrics.git
+
+    dockerfilePath: ./analytics-service/Dockerfile
+
     envVars:
       - key: PORT
         value: 3002
+
       - key: MONGO_URI
         sync: false
+
       - key: JWT_SECRET
         generateValue: true
