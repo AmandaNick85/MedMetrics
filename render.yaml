@@ -3,7 +3,7 @@ services:
   - type: web
     name: medmetrics-frontend
     runtime: node
-    repo: https://github.com/SEU_USUARIO/medmetrics-root # <-- Troque pelo seu link do GitHub
+    repo: https://github.com/AmandaNick85/MedMetrics.git
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDirectory: frontend
@@ -23,7 +23,7 @@ services:
   - type: web
     name: medmetrics-auth-service
     runtime: node
-    repo: https://github.com/SEU_USUARIO/medmetrics-root # <-- Troque pelo seu link do GitHub
+    repo: https://github.com/AmandaNick85/MedMetrics.git
     plan: free
     buildCommand: npm install
     startCommand: npm start
@@ -32,7 +32,7 @@ services:
       - key: PORT
         value: 3001
       - key: DATABASE_URL
-        sync: false # <-- Você vai colar a URL do seu Postgres (Supabase/Neon) no painel do Render
+        sync: postgresql://neondb_owner:npg_6yOm5dUbuWkR@ep-shiny-heart-ac8nuwgn.sa-east-1.aws.neon.tech/neondb?sslmode=require
       - key: JWT_SECRET
         generateValue: true # <-- O Render gera uma chave segura de forma automática para você
 
@@ -40,13 +40,13 @@ services:
   - type: web
     name: medmetrics-analytics-service
     runtime: docker # <-- O Render vai ler o seu Dockerfile automaticamente!
-    repo: https://github.com/SEU_USUARIO/medmetrics-root # <-- Troque pelo seu link do GitHub
+    repo: https://github.com/AmandaNick85/MedMetrics.git
     plan: free
     rootDirectory: analytics-service
     envVars:
       - key: PORT
         value: 3002
       - key: MONGO_URI
-        sync: false # <-- Você vai colar a URL do seu MongoDB Atlas no painel do Render
+        sync: mongodb+srv://analista:medmetrics@medmetrics-analytics.fgxrwav.mongodb.net/?appName=MedMetrics-Analytics
       - key: JWT_SECRET
         generateValue: true
