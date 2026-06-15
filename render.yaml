@@ -32,7 +32,7 @@ services:
       - key: PORT
         value: 3001
       - key: DATABASE_URL
-        sync: postgresql://neondb_owner:npg_6yOm5dUbuWkR@ep-shiny-heart-ac8nuwgn.sa-east-1.aws.neon.tech/neondb?sslmode=require
+        sync: postgresql://neondb_owner:***********@ep-shiny-heart-ac8nuwgn.sa-east-1.aws.neon.tech/neondb?sslmode=require
       - key: JWT_SECRET
         generateValue: true # <-- O Render gera uma chave segura de forma automática para você
 
@@ -47,6 +47,6 @@ services:
       - key: PORT
         value: 3002
       - key: MONGO_URI
-        sync: mongodb+srv://analista:medmetrics@medmetrics-analytics.fgxrwav.mongodb.net/?appName=MedMetrics-Analytics
+        sync: mongodb+srv://analista:<senha>@medmetrics-analytics.fgxrwav.mongodb.net/?appName=MedMetrics-Analytics
       - key: JWT_SECRET
         generateValue: true
