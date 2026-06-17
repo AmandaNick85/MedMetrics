@@ -1,61 +1,53 @@
 services:
-  # FRONTEND
-  - type: web
+  # 1. FRONTEND (Site Estático)
+  - type: static
     name: medmetrics-frontend
     runtime: node
     repo: https://github.com/AmandaNick85/MedMetrics.git
-
     buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: frontend
+    staticPublishPath: frontend/dist # Caminho físico correto a partir da raiz
 
     envVars:
       - key: VITE_API_AUTH_URL
         fromService:
           type: web
           name: medmetrics-auth-service
-          property: url
+          property: host
 
       - key: VITE_API_ANALYTICS_URL
         fromService:
           type: web
           name: medmetrics-analytics-service
-          property: url
+          property: host
 
-  # AUTH SERVICE
+  # 2. AUTH SERVICE (API Node)
   - type: web
     name: medmetrics-auth-service
     runtime: node
     plan: free
     repo: https://github.com/AmandaNick85/MedMetrics.git
-
     buildCommand: cd auth-service && npm install
     startCommand: cd auth-service && npm start
-
     envVars:
       - key: PORT
         value: 3001
-
       - key: DATABASE_URL
         sync: false
-
       - key: JWT_SECRET
         generateValue: true
 
-  # ANALYTICS SERVICE
+  # 3. ANALYTICS SERVICE (Sua API Dockerizada)
   - type: web
     name: medmetrics-analytics-service
     runtime: docker
     plan: free
     repo: https://github.com/AmandaNick85/MedMetrics.git
-
-    dockerfilePath: ./analytics-service/Dockerfile
-
+    dockerfilePath: ./analytics-service/Dockerfile # O Render lê o Dockerfile diretamente aqui
+    dockerContext: ./analytics-service # Define a pasta do microsserviço como o contexto do Docker
     envVars:
       - key: PORT
         value: 3002
-
       - key: MONGO_URI
         sync: false
-
       - key: JWT_SECRET
         generateValue: true

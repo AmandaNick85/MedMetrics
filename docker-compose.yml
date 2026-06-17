@@ -57,9 +57,6 @@ services:
       context: ./analytics-service
       dockerfile: Dockerfile
     container_name: medmetrics-analytics-service
-    volumes:
-      - ./analytics-service:/app 
-      - /app/node_modules
     ports:
       - "3002:3002"
     environment:

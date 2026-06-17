@@ -1,7 +1,7 @@
 import AtendimentoModel from './models/AtendimentoModel.js';
 
+/** Implementação concreta do port IAtendimentoRepository (Repository Pattern). */
 export default class AtendimentoRepository {
-  // O UseCase chama essa função passando a entidade de domínio limpa
   async salvar(atendimentoEntidade) {
     // Transforma a entidade limpa de domínio em um documento persistido no MongoDB
     const novoDocumento = new AtendimentoModel({
@@ -16,7 +16,6 @@ export default class AtendimentoRepository {
     return await novoDocumento.save();
   }
 
-  // Gato Mestre pro Fabrício (CRUD/Listagem): Caso queira listar os últimos atendimentos depois
   async listarTodos() {
     return await AtendimentoModel.find().sort({ criado_em: -1 });
   }

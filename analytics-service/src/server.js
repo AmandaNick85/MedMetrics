@@ -1,17 +1,16 @@
 import app from './app.js';
-import mongoose from 'mongoose';
+import MongoConnection from './infrastructure/database/mongodb/MongoConnection.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3002;
-// O endereço 'mongodb' será o nome do serviço que vamos definir no Docker Compose
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongodb:27017/medmetrics';
 
 async function connectMongo() {
   try {
+    const mongoose = MongoConnection.getInstance();
     mongoose.set('strictQuery', false);
-    // Tenta ligar à base de dados NoSQL
     await mongoose.connect(MONGO_URI);
     console.log('🍃 Ligação ao MongoDB estabelecida com sucesso para análise de dados!');
 
