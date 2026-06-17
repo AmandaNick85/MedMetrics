@@ -2,8 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-route
 import { useState, useEffect } from 'react';
 import { AuthService } from './services/api';
 import './App.css';
-
-// CORREÇÃO AQUI: Importando a imagem como uma variável para o bundler processar
 import brasaoDegase from './assets/brasao-degase-300.png';
 
 // ==========================================
