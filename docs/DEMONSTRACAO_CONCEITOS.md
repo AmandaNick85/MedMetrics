@@ -203,7 +203,7 @@ Acesse: `http://localhost:3000`
 
 ## 9. Deploy em Servidor
 
-**Plataforma:** [Render](https://render.com) via `render.yaml` (Infrastructure as Code).
+**Plataforma:** [Render](https://render.com) com deploys independentes conectados diretamente ao repositório GitHub.
 
 | Serviço Render | Tipo | Runtime |
 |----------------|------|---------|

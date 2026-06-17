@@ -95,7 +95,6 @@ medmetrics-root/
 
 ## Deploy em produção
 
-O arquivo `render.yaml` mantido apenas como referência de infraestrutura.
 O deploy atual é realizado através da configuração manual dos serviços no [Render](https://render.com): frontend (site estático), auth-service e analytics-service (Docker).
 
 Variáveis necessárias em produção:
