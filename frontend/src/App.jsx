@@ -57,7 +57,7 @@ const LoginView = () => {
           <div className="text-center mb-8">
           <div className="text-center mb-8">
           <img 
-            src="/assets/brasao-degase-300.png"
+            src="./assets/brasao-degase-300.png"
             alt="Brasão DEGASE" 
             className="mx-auto h-20 w-auto mb-3" 
           />
