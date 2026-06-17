@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-route
 import { useState, useEffect } from 'react';
 import { AuthService } from './services/api';
 import './App.css';
-import './assets/brasao-degase-300.png'
+
+// CORREÇÃO AQUI: Importando a imagem como uma variável para o bundler processar
+import brasaoDegase from './assets/brasao-degase-300.png';
 
 // ==========================================
 // COMPONENTE: TELA DE LOGIN (Apresentação)
@@ -45,7 +47,7 @@ const LoginView = () => {
         'Falha na conexão com o servidor de autenticação do DEGASE.'
       );
     } finally {
-      setLoading(false);
+      loading(false);
     }
   };
 
@@ -53,19 +55,17 @@ const LoginView = () => {
     <div className="flex min-h-screen items-center justify-center bg-degase-navy p-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-card border-t-4 border-degase-gold">
         
+        {/* CORREÇÃO AQUI: Removidas as divs triplicadas que quebravam o layout */}
         <div className="text-center mb-8">
-          <div className="text-center mb-8">
-          <div className="text-center mb-8">
           <img 
-            src="./assets/brasao-degase-300.png"
+            src={brasaoDegase} // CORREÇÃO AQUI: Usando a variável do import
             alt="Brasão DEGASE" 
             className="mx-auto h-20 w-auto mb-3" 
           />
-	        </div>
           <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
           <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
         </div>
-    </div>
+
         {error && (
           <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-danger border border-red-200 font-medium">
             ⚠️ {error}
@@ -151,7 +151,6 @@ const DiretorDashboard = () => {
     }
   };
 
-  // CORRIGIDO: Usando useEffect corretamente para evitar quebra no bundler
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -338,16 +337,16 @@ const DiretorDashboard = () => {
     </div>
   );
 };
+
 // ==========================================
-// COMPONENTE: DASHBOARD DO TÉCNICO DE SAÚDE (CORRIGIDO E SEGURO)
+// COMPONENTE: DASHBOARD DO TÉCNICO DE SAÚDE
 // ==========================================
 const TecnicoDashboard = () => {
   const username = localStorage.getItem('medmetrics_username') || 'Técnico';
   
-  // Estados mapeados corretamente com os requisitos de negócio
   const [adolescenteId, setAdolescenteId] = useState('');
-  const [equipe, setEquipe] = useState('EQUIPE_TECNICA'); // Começa com EQUIPE_TECNICA
-  const [tipoAtendimento, setTipoAtendimento] = useState('INDIVIDUAL'); // Começa com seu Enum original
+  const [equipe, setEquipe] = useState('EQUIPE_TECNICA'); 
+  const [tipoAtendimento, setTipoAtendimento] = useState('INDIVIDUAL'); 
   const [descricao, setDescricao] = useState('');
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
@@ -366,7 +365,6 @@ const TecnicoDashboard = () => {
     try {
       setSubmitting(true);
       
-      // Envia a estrutura exata exigida pelo Clean Architecture do backend
       const response = await fetch('http://localhost:3002/api/analytics/atendimentos', {
         method: 'POST',
         headers: { 
@@ -375,8 +373,8 @@ const TecnicoDashboard = () => {
         },
         body: JSON.stringify({
           adolescente_id: adolescenteId,
-          equipe: equipe,            // 'EQUIPE_TECNICA' ou 'SAUDE_MENTAL'
-          tipo: tipoAtendimento,     // 'INDIVIDUAL', 'FAMILIAR', 'EM_GRUPO', etc.
+          equipe: equipe,            
+          tipo: tipoAtendimento,     
           descricao: descricao,
           tecnico_responsavel: username
         })
@@ -403,7 +401,6 @@ const TecnicoDashboard = () => {
 
   return (
     <div className="p-6 bg-slate-50 min-h-screen font-sans text-slate-800">
-      {/* Topbar */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Painel Operacional de Saúde</h1>
@@ -414,7 +411,6 @@ const TecnicoDashboard = () => {
         </button>
       </div>
 
-      {/* Cards de Monitoramento Rápido */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
           <div className="p-3 bg-blue-50 text-blue-600 rounded-xl font-bold text-xl">🩺</div>
@@ -439,7 +435,6 @@ const TecnicoDashboard = () => {
         </div>
       </div>
 
-      {/* Formulário Operacional */}
       <div className="max-w-4xl bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
         <h2 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
           <span>📝</span> Registrar Novo Atendimento de Adolescente
@@ -449,7 +444,6 @@ const TecnicoDashboard = () => {
         {formSuccess && <div className="mb-4 p-3 text-xs bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 font-medium">✅ {formSuccess}</div>}
 
         <form onSubmit={handleRecordAtendimento} className="space-y-4">
-          {/* Grid de 3 Colunas: Alinhamento perfeito dos dados de domínio */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-500 uppercase mb-1">ID do Adolescente</label>
@@ -515,6 +509,7 @@ const TecnicoDashboard = () => {
     </div>
   );
 };
+
 // ==========================================
 // COMPONENTE: GUARDA DE ROTAS (Segurança/SOLID)
 // ==========================================
