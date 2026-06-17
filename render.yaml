@@ -21,20 +21,27 @@ services:
           property: host
 
   # 2. AUTH SERVICE (API Node)
-  - type: web
-    name: medmetrics-auth-service
-    runtime: node
-    plan: free
-    repo: https://github.com/AmandaNick85/MedMetrics.git
-    buildCommand: cd auth-service && npm install
-    startCommand: cd auth-service && npm start
-    envVars:
-      - key: PORT
-        value: 3001
-      - key: DATABASE_URL
-        sync: false
-      - key: JWT_SECRET
-        generateValue: true
+  # Exported from Render on 2026-06-17T18:42:20Z
+  version: "1"
+  projects:
+  - name: MedMetrics
+    environments:
+    - name: Production
+      services:
+      - type: web
+        name: auth-service
+        runtime: node
+        repo: https://github.com/AmandaNick85/MedMetrics
+        plan: free
+        envVars:
+        - key: DATABASE_URL
+          sync: false
+        region: oregon
+        buildCommand: yarn install
+        startCommand: node src/server.js
+        autoDeployTrigger: commit
+        rootDir: MedMetrics/auth-service
+
 
   # 3. ANALYTICS SERVICE (Sua API Dockerizada)
   - type: web
