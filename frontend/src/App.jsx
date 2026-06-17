@@ -54,15 +54,9 @@ const LoginView = () => {
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-card border-t-4 border-degase-gold">
         
         <div className="text-center mb-8">
-          <div className="text-center mb-8">
-          <img 
-            src="./assets/brasao-degase-300.png"
-            alt="Brasão DEGASE" 
-            className="mx-auto h-20 w-auto mb-3" 
-          />
-          <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
-          <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
-        </div>
+          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-degase-light text-degase-blue font-bold text-xl mb-3 border border-slate-200">
+            ⚖️
+          </div>
           <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
           <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
         </div>
