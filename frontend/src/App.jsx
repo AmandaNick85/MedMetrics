@@ -61,11 +61,11 @@ const LoginView = () => {
             alt="Brasão DEGASE" 
             className="mx-auto h-20 w-auto mb-3" 
           />
-	      </div>
+	        </div>
           <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
           <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
         </div>
-
+    </div>
         {error && (
           <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-danger border border-red-200 font-medium">
             ⚠️ {error}
