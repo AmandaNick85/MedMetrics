@@ -2,11 +2,11 @@
   "name": "auth-service",
   "version": "1.0.0",
   "description": "Microsserviço de Autenticação com Postgres e Sequelize",
-  "main": "src/infrastructure/database/server.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/infrastructure/database/server.js",
-    "dev": "nodemon src/infrastructure/database/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
