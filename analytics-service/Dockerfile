@@ -1,4 +1,3 @@
-# Utiliza a versão estável e moderna do Node 24 em ambiente Alpine
 FROM node:24-alpine
 
 # Define o diretório de trabalho seguro
@@ -8,7 +7,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instala as dependências de produção de forma limpa
-RUN npm install --only=production && npm cache clean --force
+#RUN npm install --only=production && npm cache clean --force
+# CORREÇÃO: Utilizando a sintaxe moderna para instalar apenas produção (--omit=dev)
+RUN npm install --omit=dev && npm cache clean --force
 
 # Copia o restante do código fonte
 COPY . .
