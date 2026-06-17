@@ -55,14 +55,14 @@ const LoginView = () => {
         
         <div className="text-center mb-8">
           <div className="text-center mb-8">
-  <img 
-    src={brasaoDegase} 
-    alt="Brasão DEGASE" 
-    className="mx-auto h-20 w-auto mb-3" 
-  />
-  <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
-  <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
-</div>
+          <img 
+            src={brasaoDegase} 
+            alt="Brasão DEGASE" 
+            className="mx-auto h-20 w-auto mb-3" 
+          />
+          <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
+          <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
+        </div>
           <h1 className="text-2xl font-bold text-degase-navy font-sans tracking-tight">MedMetrics</h1>
           <p className="text-slate-400 text-xs mt-1 uppercase tracking-wider font-semibold">Novo DEGASE - Sistema de Saúde</p>
         </div>
