@@ -27,12 +27,60 @@ export const AuthService = {
 };
 
 export const AnalyticsService = {
-  async fetchMetrics() {
-    const response = await analyticsHttpClient.get('/metrics');
+  // ==========================================
+  // 1. CRUD: ATENDIMENTOS (Socioeducativo)
+  // ==========================================
+  async criarAtendimento(dados) {
+    // Rota que dispara o UseCase customizado que mapeamos no seu app.js
+    const response = await analyticsHttpClient.post('/analytics/atendimentos', dados);
     return response.data;
   },
-  async saveMetric(metricData) {
-    const response = await analyticsHttpClient.post('/metrics', metricData);
+  async listarAtendimentos() {
+    const response = await analyticsHttpClient.get('/atendimentos');
+    return response.data;
+  },
+  async atualizarAtendimento(id, dados) {
+    const response = await analyticsHttpClient.put(`/atendimentos/${id}`, dados);
+    return response.data;
+  },
+  async deletarAtendimento(id) {
+    const response = await analyticsHttpClient.delete(`/atendimentos/${id}`);
+    return response.data;
+  },
+
+  // ==========================================
+  // 2. CRUD: METRICAS / PAINEL (Analytics)
+  // ==========================================
+  async listarAnalytics() {
+    const response = await analyticsHttpClient.get('/analytics');
+    return response.data;
+  },
+  async salvarAnalytics(dadosMetric) {
+    const response = await analyticsHttpClient.post('/analytics', dadosMetric);
+    return response.data;
+  },
+  async deletarAnalytics(id) {
+    const response = await analyticsHttpClient.delete(`/analytics/${id}`);
+    return response.data;
+  },
+
+  // ==========================================
+  // 3. CRUD: RELATÓRIOS TÉCNICOS
+  // ==========================================
+  async criarRelatorio(dados) {
+    const response = await analyticsHttpClient.post('/relatorios', dados);
+    return response.data;
+  },
+  async listarRelatorios() {
+    const response = await analyticsHttpClient.get('/relatorios');
+    return response.data;
+  },
+  async atualizarRelatorio(id, dados) {
+    const response = await analyticsHttpClient.put(`/relatorios/${id}`, dados);
+    return response.data;
+  },
+  async deletarRelatorio(id) {
+    const response = await analyticsHttpClient.delete(`/relatorios/${id}`);
     return response.data;
   }
 };

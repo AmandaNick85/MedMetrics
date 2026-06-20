@@ -1,36 +1,32 @@
 import mongoose from 'mongoose';
 
 const analyticsSchema = new mongoose.Schema({
-  technicianId: {
+  tecnicoId: {
     type: String, // ID que vem do Postgres (auth-service) como UUID string
     required: [true, 'O ID do técnico é obrigatório.'],
-    index: true // Indexado para buscas rápidas por relatórios de técnicos específicos
+    index: true 
   },
-  technicianName: {
+  tecnicoNome: {
     type: String,
     required: [true, 'O nome do técnico é obrigatório.']
   },
-  equipmentType: {
+  tipoAtendimentoPredominante: {
     type: String,
-    required: [true, 'O tipo de equipamento é obrigatório.'],
-    enum: ['RAIO-X', 'TOMÓGRAFO', 'RESPIRADOR', 'MONITOR', 'OUTRO']
+    required: [true, 'O tipo de atendimento é obrigatório.'],
+    enum: ['ACOLHIMENTO', 'VISITA_VIRTUAL', 'RELATORIO', 'SAUDE_MENTAL', 'OUTRO']
   },
-  description: {
-    type: String,
-    required: [true, 'A descrição do atendimento é obrigatória.']
-  },
-  durationMinutes: {
+  adolescentesAtendidosNoMes: {
     type: Number,
-    required: [true, 'A duração do atendimento em minutos é obrigatória.']
+    required: [true, 'A quantidade de adolescentes atendidos é obrigatória.']
   },
-  status: {
+  statusPainel: {
     type: String,
     required: true,
-    enum: ['CONCLUÍDO', 'EM_ANDAMENTO', 'AGUARDANDO_PEÇA'],
-    default: 'CONCLUÍDO'
+    enum: ['ATUALIZADO', 'PROCESSANDO'],
+    default: 'ATUALIZADO'
   }
 }, {
-  timestamps: true // Cria automaticamente createdAt e updatedAt para os relatórios temporais
+  timestamps: true // Cria automaticamente createdAt e updatedAt
 });
 
 const Analytics = mongoose.model('Analytics', analyticsSchema);

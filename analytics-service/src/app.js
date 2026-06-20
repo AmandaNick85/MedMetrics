@@ -2,11 +2,14 @@ import express from 'express';
 import cors from 'cors';
 import AtendimentoRepository from './infrastructure/database/mongodb/AtendimentoRepository.js';
 import RegistrarAtendimento from './domain/usecases/RegistrarAtendimento.js';
+import analyticsRoutes from './infrastructure/routes/analyticsRoutes.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/api', analyticsRoutes);
 
 const atendimentoRepository = new AtendimentoRepository();
 const registrarAtendimentoUseCase = new RegistrarAtendimento(atendimentoRepository);

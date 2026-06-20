@@ -42,7 +42,7 @@ Usuários criados automaticamente na primeira execução:
 
 | Perfil | ID Institucional | Senha | Acesso |
 |--------|------------------|-------|--------|
-| Diretor Técnico | `1001` | `Med@123` | Gestão de servidores |
+| Diretor Técnico  | `1001` | `Med@123` | Gestão de servidores |
 | Técnico de Saúde | `2002` | `Med@123` | Registro de atendimentos |
 
 ---
@@ -99,11 +99,11 @@ O deploy atual é realizado através da configuração manual dos serviços no [
 
 Variáveis necessárias em produção:
 
-| Serviço | Variáveis |
-|---------|-----------|
-| auth-service | `DATABASE_URL`, `JWT_SECRET`, `PORT=3001` |
-| analytics-service | `MONGO_URI`, `JWT_SECRET`, `PORT=3002` |
-| frontend | `VITE_API_AUTH_URL`, `VITE_API_ANALYTICS_URL` |
+| Serviço           | Variáveis                                     |
+|-------------------|-----------------------------------------------|
+| auth-service      | `DATABASE_URL`, `JWT_SECRET`, `PORT=3001`     |
+| analytics-service | `MONGO_URI`, `JWT_SECRET`, `PORT=3002`        |
+| frontend          | `VITE_API_AUTH_URL`, `VITE_API_ANALYTICS_URL` |
 
 Bancos recomendados: PostgreSQL (Supabase/Neon) para auth; MongoDB Atlas para analytics.
 
@@ -111,7 +111,10 @@ Bancos recomendados: PostgreSQL (Supabase/Neon) para auth; MongoDB Atlas para an
 
 ## Documentação técnica
 
-Detalhes de arquitetura, SOLID, Design Patterns, TDD e BDD estão nos documentos:
+ Detalhes acadêmicos, decisões arquiteturais, padrões de projeto e conformidade regulatória estão descritos nos seguintes documentos:
+- [`docs-Fabricio/DOCUMENTACAO_PROJETO.md`](docs-Fabricio/DOCUMENTACAO_PROJETO.md)
+ 
+ Detalhes de arquitetura, SOLID, Design Patterns, TDD e BDD estão nos documentos:
 
-- [`docs/DEMONSTRACAO_CONCEITOS.md`](docs/DEMONSTRACAO_CONCEITOS.md)
-- [`docs/JUSTIFICATIVA_TECNICA.md`](docs/JUSTIFICATIVA_TECNICA.md)
+- [`docs-Garrido/DEMONSTRACAO_CONCEITOS.md`](docs-Garrido/DEMONSTRACAO_CONCEITOS.md)
+- [`docs-Garrido/JUSTIFICATIVA_TECNICA.md`](docs-Garrido/JUSTIFICATIVA_TECNICA.md)
